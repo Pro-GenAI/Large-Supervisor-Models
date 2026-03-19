@@ -1,4 +1,12 @@
 import os
+
+token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGINGFACE_HUB_TOKEN")
+if not token:
+    raise EnvironmentError(
+        "HF_TOKEN environment variable not set. Export your Hugging Face token as HF_TOKEN."
+    )
+
+
 import torch
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from huggingface_hub import create_repo
@@ -51,12 +59,6 @@ def sanity_check(tokenizer, model):
 
 def push_to_hub(tokenizer, model):
     # Read token from environment. Prefer HF_TOKEN, fallback to HUGGINGFACE_HUB_TOKEN.
-    token = os.environ.get("HF_TOKEN") or os.environ.get("HUGGINGFACE_HUB_TOKEN")
-    if not token:
-        raise EnvironmentError(
-            "HF_TOKEN environment variable not set. Export your Hugging Face token as HF_TOKEN."
-        )
-
     print(f"Creating repo: {HF_REPO_ID}")
 
     create_repo(

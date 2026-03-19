@@ -3,7 +3,7 @@ import torch
 
 # Paths
 ROOT = Path(__file__).parent.parent.parent
-CHECKPOINT_DIR = ROOT / "checkpoints/lsm-transformer"
+CHECKPOINT_DIR = ROOT / "checkpoints" / "lsm-transformer"
 TRAINED_MODEL_DIR = ROOT / "trained-model" / "lsm-transformer"
 
 # Model
