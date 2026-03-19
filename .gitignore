@@ -1,6 +1,9 @@
 # Custom files
-TODO.md
+TODO*.md
 requirements.md
+unused/
+*.bkp
+checkpoints/
 
 
 # Byte-compiled / optimized / DLL files

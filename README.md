@@ -1,16 +1,20 @@
-# 🛡️ Large Supervisor Models (LSMs)
+# 🛡️ LaSuMo: Large Supervisor Models (LSMs)
 
 > **Real-time AI safety — not bolted on after, but woven in as it happens.**
 
----
+<p align="center">
+<!-- <img src="./assets/project_banner.jpg" alt="Project banner" height="360px"/> -->
+<!-- $ convert project_banner.png -resize 600x319 project_banner.jpg -->
+<!-- <img src="./assets/project_logo.jpg" alt="Project logo" width="270px"/> -->
+<!-- $ convert logo_large.png -resize 270x270 project_logo.jpg -->
+<img src="https://raw.githubusercontent.com/Pro-GenAI/Large-Supervisor-Models/main/assets/Banner.jpg" alt="Banner image" height="400"/>
+</p>
 
 ## The Problem with AI Safety Today
 
-Most content moderation happens *after* an LLM finishes speaking. By then, the damage is done — harmful content has already been generated, streamed, and delivered to the user. Guardrails that wrap around LLMs are slow, blunt instruments that can't react until it's too late.
+Most content moderation happens *after* an LLM finishes speaking. By then, the damage is done — harmful content has already been generated, streamed, and delivered to the user. Guardrails that wrap around LLMs are slow instruments that can analyze the input and final output, but not segments in the reasoning or output streams to interrupt harmful content as soon as it starts to emerge.
 
 **LSM changes that.**
-
----
 
 ## What is an LSM?
 
@@ -19,7 +23,7 @@ A **Large Supervisor Model** is a lightweight, purpose-built model that runs *in
 Think of it as a co-pilot that never blinks.
 
 ```
-LLM ──── token stream ────▶ LSM ──── abstain / feedback / INTERRUPT ──▶ Client
+LLM ──── token stream ────▶ LSM ──── abstain / INTERRUPT ──▶ Client
                                               ▲
                                     Running in parallel,
                                     always watching
@@ -47,7 +51,6 @@ LLM ──── token stream ────▶ LSM ──── abstain / feedbac
 
 ```
 ABSTAIN      →  Content is safe. Pass through to client.
-FEEDBACK     →  Content is borderline. Log it, flag it, learn from it.
 INTERRUPT    →  Content is harmful. Stop the stream. Notify the client.
 ```
 
@@ -58,7 +61,6 @@ When LSM fires, it sends a structured interrupt to the client so the partial res
 ```json
 {
   "type": "interrupt",
-  "reason": "self_harm",
   "confidence": 0.97,
   "last_tokens": "You have no purpose to live"
 }
@@ -148,36 +150,9 @@ The goal is not to build an adversarially robust jailbreak defense — that's a 
 
 ---
 
-## GPU Support
+Available on HuggingFace: 
 
-LSM runs on GPU when sufficient VRAM is available, and gracefully falls back to CPU. It's designed to be small enough that GPU is optional, not required.
-
----
-
-## Project Structure
-
-```
-lsm/
-├── models/
-│   ├── classifier/        # Embedding + neural net classifier
-│   └── transformer/       # Small fine-tuned transformer
-├── training/
-│   ├── data_generation/   # LLM-assisted training data creation
-│   └── datasets/          # Raw and processed training data
-├── inference/
-│   ├── supervisor.py      # Main LSM supervisor loop
-│   ├── queue_handler.py   # Token queue management
-│   └── interrupt.py       # Interrupt signal formatter
-├── evaluation/
-│   └── eval.py            # Evaluation pipeline
-└── README.md
-```
-
----
-
-## Status
-
-🚧 **Active development** — architecture finalized, training pipeline in progress.
+[![Model](https://img.shields.io/badge/HuggingFace-LargeSupervisorModel-orange?style=for-the-badge&logo=huggingface)](https://huggingface.co/prane-eth/Large-Supervisor-Model)
 
 ---
 

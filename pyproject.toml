@@ -8,13 +8,16 @@ license = { text = "CC-BY 4.0" }
 requires-python = ">=3.8"
 dependencies = [
   "python-dotenv",
+  "datasets",
   "openai",
   "torch",
   "transformers",
+  "huggingface-hub",
+  "tqdm",
 ]
 
 [tool.setuptools.packages.find]
-include = ["large_supervisor_models", "large_supervisor_models.*"]
+include = ["lsm", "lsm.*", "large_supervisor_models", "large_supervisor_models.*"]
 
 [project.optional-dependencies]
 dev = [
