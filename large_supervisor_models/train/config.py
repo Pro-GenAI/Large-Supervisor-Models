@@ -17,9 +17,9 @@ USE_FP16 = torch.cuda.is_available()
 MAX_LEN = 128
 
 # Training
-BATCH_SIZE = 256
+BATCH_SIZE = 400
 GRAD_ACCUM = 1
 EPOCHS = 3
 
 # Eval
-EVAL_BATCH_SIZE = 512
+EVAL_BATCH_SIZE = 600
